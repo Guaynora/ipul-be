@@ -1,0 +1,2 @@
+-- Initial scaffold migration for church-backend-mvp PR1 foundation.
+-- Run `npm run prisma:migrate:dev -- --name init` to regenerate from schema on a real database.
