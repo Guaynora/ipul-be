@@ -1,0 +1,95 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum AdminRole {
+  ADMIN
+}
+
+enum IncomeType {
+  OFFERING
+  TITHE
+  SALE_OTHER
+}
+
+enum FundSource {
+  TITHE
+  NON_TITHE
+}
+
+enum DiscountStatus {
+  DRAFT
+  ACTIVE
+  RETIRED
+}
+
+model AdminUser {
+  id           String    @id @default(uuid())
+  email        String    @unique
+  passwordHash String
+  role         AdminRole @default(ADMIN)
+  createdAt    DateTime  @default(now())
+}
+
+model Parishioner {
+  id        String   @id @default(uuid())
+  name      String
+  email     String?
+  phone     String?
+  address   String?
+  baptized  Boolean
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  incomes   Income[]
+}
+
+model DiscountVersion {
+  id           String         @id @default(uuid())
+  version      Int
+  status       DiscountStatus @default(DRAFT)
+  effectiveFrom DateTime
+  rules        Json
+  createdBy    String
+  createdAt    DateTime       @default(now())
+  activatedAt  DateTime?
+  incomes      Income[]
+
+  @@unique([version])
+}
+
+model Income {
+  id                String           @id @default(uuid())
+  type              IncomeType
+  amount            Decimal          @db.Decimal(14, 2)
+  date              DateTime
+  description       String?
+  parishionerId     String?
+  discountVersionId String?
+  discountSnapshot  Json?
+  createdBy         String
+  createdAt         DateTime         @default(now())
+
+  parishioner      Parishioner?     @relation(fields: [parishionerId], references: [id])
+  discountVersion  DiscountVersion? @relation(fields: [discountVersionId], references: [id])
+
+  @@index([type, date])
+  @@index([parishionerId])
+}
+
+model Expense {
+  id          String     @id @default(uuid())
+  description String
+  amount      Decimal    @db.Decimal(14, 2)
+  date        DateTime
+  category    String
+  fundSource  FundSource
+  createdBy   String
+  createdAt   DateTime   @default(now())
+
+  @@index([fundSource, date])
+}

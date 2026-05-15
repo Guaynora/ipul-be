@@ -48,14 +48,33 @@ $ pnpm run start:prod
 
 ```bash
 # unit tests
-$ pnpm run test
+$ npm run test
+
+# unit tests (alias)
+$ npm run test:unit
 
 # e2e tests
-$ pnpm run test:e2e
+$ npm run test:e2e
 
 # test coverage
-$ pnpm run test:cov
+$ npm run test:cov
 ```
+
+## Prisma baseline workflow
+
+```bash
+$ npm run prisma:generate
+$ npm run prisma:migrate:dev -- --name init
+$ npm run prisma:studio
+```
+
+## SDD roadmap (church-backend-mvp)
+
+- **PR1 (current slice)**: foundation bootstrap, Prisma schema baseline, REST auth (`/auth/login|refresh|logout`), role guard, shared validation/error pipeline.
+- **PR2**: parishioners + incomes modules with TITHE parishioner invariant.
+- **PR3**: expenses + discounts + reports and hardening tests/docs.
+
+> API boundary rule: authentication stays **REST-only**; business modules will be exposed via GraphQL in later slices.
 
 ## Deployment
 
