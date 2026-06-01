@@ -4,6 +4,8 @@
 
 Este archivo es un resumen portable para continuar el proyecto desde otra máquina/sesión.
 
+> Seguimiento operativo rapido: ver [`PROJECT_STATUS.md`](./PROJECT_STATUS.md).
+
 ## 1) Estado actual
 
 - Proyecto: backend NestJS para gestión de iglesia.
