@@ -76,6 +76,20 @@ $ npm run prisma:studio
 
 > API boundary rule: authentication stays **REST-only**; business modules will be exposed via GraphQL in later slices.
 
+## Handoff rapido (otra maquina/sesion)
+
+Si retomas este proyecto desde cero, revisa en este orden:
+
+1. [`PROJECT_STATUS.md`](./PROJECT_STATUS.md) (estado ejecutable: hecho, falta, plan PR3 y riesgos).
+2. [`SESSION_HANDOFF.md`](./SESSION_HANDOFF.md) (contexto historico y decisiones funcionales/tecnicas).
+
+Checklist de arranque:
+
+- Instalar dependencias: `pnpm install`.
+- Validar baseline tecnico: `npm run lint && npm run build && npm run test`.
+- Revisar brechas antes de codificar: modulo `expenses`, `tithe-discounts` y `reports`.
+- Confirmar estado de migraciones Prisma antes de PR3.
+
 ## Deployment
 
 When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
