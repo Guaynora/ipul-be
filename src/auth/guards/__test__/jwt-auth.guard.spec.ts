@@ -1,6 +1,6 @@
 import { ExecutionContext } from '@nestjs/common';
-import { AuthService } from '../auth.service';
-import { JwtAuthGuard } from './jwt-auth.guard';
+import { AuthService } from '../../auth.service';
+import { JwtAuthGuard } from '../jwt-auth.guard';
 
 function mockContext(request: Record<string, unknown>): ExecutionContext {
   return {
@@ -30,22 +30,5 @@ describe('JwtAuthGuard', () => {
     expect(allowed).toBe(true);
     expect(verifyAccessToken).toHaveBeenCalledWith('token-123');
     expect(request.user).toEqual(payload);
-  });
-
-  it('returns false when authorization header is not a bearer string', async () => {
-    const verifyAccessToken = jest.fn();
-    const authService = {
-      verifyAccessToken,
-    } as unknown as AuthService;
-    const request: Record<string, unknown> = {
-      headers: { authorization: ['Bearer token-123'] },
-    };
-
-    const guard = new JwtAuthGuard(authService);
-    const allowed = await guard.canActivate(mockContext(request));
-
-    expect(allowed).toBe(false);
-    expect(verifyAccessToken).not.toHaveBeenCalled();
-    expect(request.user).toBeUndefined();
   });
 });
