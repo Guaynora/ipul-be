@@ -11,6 +11,7 @@ describe('HttpExceptionFilter', () => {
     const statusSpy = jest.fn().mockReturnThis();
     const jsonSpy = jest.fn();
     const host = {
+      getType: () => 'http',
       switchToHttp: () => ({
         getResponse: () => ({ status: statusSpy, json: jsonSpy }),
         getRequest: () => ({ url: '/auth/login' }),

@@ -1,5 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { FundSource, IncomeType } from '../../shared/presentation/graphql.types';
+import { IncomeType } from '@prisma/client';
+import { FundSource } from '../../shared/presentation/graphql.types';
 
 @ObjectType()
 export class IncomeByTypeModel {

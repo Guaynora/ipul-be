@@ -4,6 +4,7 @@ import { JwtAuthGuard } from '../jwt-auth.guard';
 
 function mockContext(request: Record<string, unknown>): ExecutionContext {
   return {
+    getType: () => 'http',
     switchToHttp: () => ({ getRequest: () => request }),
   } as unknown as ExecutionContext;
 }

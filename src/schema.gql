@@ -1,0 +1,171 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type ParishionerType {
+  id: ID!
+  name: String!
+  email: String
+  phone: String
+  address: String
+  baptized: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type IncomeTypeModel {
+  id: ID!
+  type: String!
+  amount: String!
+  date: DateTime!
+  description: String
+  parishionerId: String
+  createdBy: String!
+}
+
+type ExpenseTypeModel {
+  id: ID!
+  description: String!
+  amount: String!
+  date: DateTime!
+  category: String!
+  fundSource: FundSource!
+  createdBy: String!
+}
+
+enum FundSource {
+  TITHE
+  NON_TITHE
+}
+
+type TitheDiscountTypeModel {
+  id: ID!
+  version: Int!
+  status: DiscountStatus!
+  effectiveFrom: DateTime!
+  rules: String!
+  createdBy: String!
+  createdAt: DateTime!
+  activatedAt: DateTime
+}
+
+enum DiscountStatus {
+  DRAFT
+  ACTIVE
+  RETIRED
+}
+
+type IncomeByTypeModel {
+  type: IncomeType!
+  total: String!
+}
+
+enum IncomeType {
+  OFFERING
+  TITHE
+  SALE_OTHER
+}
+
+type IncomeReportModel {
+  byType: [IncomeByTypeModel!]!
+  grandTotal: String!
+}
+
+type ExpenseByFundModel {
+  fundSource: FundSource!
+  total: String!
+}
+
+type ExpenseByCategoryModel {
+  category: String!
+  total: String!
+}
+
+type ExpenseReportModel {
+  byFund: [ExpenseByFundModel!]!
+  byCategory: [ExpenseByCategoryModel!]!
+  grandTotal: String!
+}
+
+type FundBalanceModel {
+  fund: FundSource!
+  totalIncome: String!
+  totalExpense: String!
+  net: String!
+}
+
+type BalanceReportModel {
+  byFund: [FundBalanceModel!]!
+  totalIncome: String!
+  totalExpense: String!
+  netBalance: String!
+}
+
+type Query {
+  parishioners: [ParishionerType!]!
+  parishioner(id: ID!): ParishionerType
+  incomes: [IncomeTypeModel!]!
+  expenses: [ExpenseTypeModel!]!
+  titheDiscounts: [TitheDiscountTypeModel!]!
+  activeTitheDiscount: TitheDiscountTypeModel
+  incomeReport(filter: ReportFilterInput): IncomeReportModel!
+  expenseReport(filter: ReportFilterInput): ExpenseReportModel!
+  balanceReport(filter: ReportFilterInput): BalanceReportModel!
+}
+
+input ReportFilterInput {
+  from: String
+  to: String
+}
+
+type Mutation {
+  createParishioner(input: CreateParishionerInput!): ParishionerType!
+  updateParishioner(id: ID!, input: UpdateParishionerInput!): ParishionerType!
+  deleteParishioner(id: ID!): Boolean!
+  createIncome(input: CreateIncomeInput!, createdBy: String!): IncomeTypeModel!
+  createExpense(input: CreateExpenseInput!, createdBy: String!): ExpenseTypeModel!
+  createTitheDiscount(input: CreateTitheDiscountInput!, createdBy: String!): TitheDiscountTypeModel!
+  activateTitheDiscount(id: String!): TitheDiscountTypeModel!
+}
+
+input CreateParishionerInput {
+  name: String!
+  baptized: Boolean!
+  email: String
+  phone: String
+  address: String
+}
+
+input UpdateParishionerInput {
+  name: String
+  baptized: Boolean
+  email: String
+  phone: String
+  address: String
+}
+
+input CreateIncomeInput {
+  type: IncomeType!
+  amount: String!
+  date: String!
+  description: String
+  parishionerId: String
+}
+
+input CreateExpenseInput {
+  description: String!
+  amount: String!
+  date: String!
+  category: String!
+  fundSource: FundSource!
+}
+
+input CreateTitheDiscountInput {
+  effectiveFrom: String!
+  rules: String!
+}
