@@ -11,6 +11,7 @@ import { ParishionersModule } from './parishioners/parishioners.module';
 import { IncomesModule } from './incomes/incomes.module';
 import { ExpensesModule } from './expenses/expenses.module';
 import { TitheDiscountsModule } from './tithe-discounts/tithe-discounts.module';
+import { ReportsModule } from './reports/reports.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { TitheDiscountsModule } from './tithe-discounts/tithe-discounts.module';
     IncomesModule,
     ExpensesModule,
     TitheDiscountsModule,
+    ReportsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
