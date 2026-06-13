@@ -24,6 +24,6 @@ export class TitheDiscountTypeModel {
   @Field()
   createdAt!: Date;
 
-  @Field({ nullable: true })
+  @Field(() => Date, { nullable: true })
   activatedAt!: Date | null;
 }

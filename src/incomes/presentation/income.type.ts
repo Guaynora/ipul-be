@@ -15,10 +15,10 @@ export class IncomeTypeModel {
   @Field()
   date!: Date;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   description!: string | null;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   parishionerId!: string | null;
 
   @Field()

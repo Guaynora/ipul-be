@@ -8,13 +8,13 @@ export class ParishionerType {
   @Field()
   name!: string;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   email!: string | null;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   phone!: string | null;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   address!: string | null;
 
   @Field()

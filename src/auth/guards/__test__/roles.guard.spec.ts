@@ -3,6 +3,7 @@ import { RolesGuard } from '../roles.guard';
 
 function mockContext(user: unknown): ExecutionContext {
   return {
+    getType: () => 'http',
     switchToHttp: () => ({ getRequest: () => ({ user }) }),
   } as unknown as ExecutionContext;
 }

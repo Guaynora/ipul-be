@@ -25,12 +25,12 @@ export class CreateIncomeInput {
   @IsDateString()
   date!: string;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   @IsOptional()
   @IsString()
   description?: string | null;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   @IsOptional()
   @IsString()
   parishionerId?: string | null;

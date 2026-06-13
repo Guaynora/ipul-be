@@ -1,10 +1,10 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, Optional, UnauthorizedException } from '@nestjs/common';
 import { sign, verify, type Secret, type SignOptions } from 'jsonwebtoken';
 import type { AuthConfig, AuthTokenPayload } from './auth.types';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly config: AuthConfig = defaultAuthConfig()) {}
+  constructor(@Optional() private readonly config: AuthConfig = defaultAuthConfig()) {}
 
   login(credentials: { email: string; password: string }): Promise<{
     accessToken: string;
