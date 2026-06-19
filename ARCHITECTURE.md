@@ -1,6 +1,6 @@
 # Architecture — ipul-be
 
-> Last updated: 2026-06-13 · Slice 3 complete (reports)
+> Last updated: 2026-06-13 · PR3 complete (all 4 slices merged)
 
 Living document. Updated at the end of each slice.
 
@@ -179,4 +179,4 @@ stateDiagram-v2
 | PR3 — Slice 1 | expenses | ✅ merged |
 | PR3 — Slice 2 | tithe-discounts | ✅ PR open (#4) |
 | PR3 — Slice 3 | reports | ✅ PR open |
-| PR3 — Slice 4 | hardening (e2e, docs) | ⬜ pending |
+| PR3 — Slice 4 | hardening (e2e, docs) | ✅ PR open (#6) |

@@ -31,9 +31,11 @@ enum DiscountStatus {
 model AdminUser {
   id           String    @id @default(uuid())
   email        String    @unique
-  passwordHash String
+  passwordHash String    @map("password_hash")
   role         AdminRole @default(ADMIN)
-  createdAt    DateTime  @default(now())
+  createdAt    DateTime  @default(now()) @map("created_at")
+
+  @@map("admin_users")
 }
 
 model Parishioner {
@@ -43,23 +45,26 @@ model Parishioner {
   phone     String?
   address   String?
   baptized  Boolean
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt    @map("updated_at")
   incomes   Income[]
+
+  @@map("parishioners")
 }
 
 model DiscountVersion {
-  id           String         @id @default(uuid())
-  version      Int
-  status       DiscountStatus @default(DRAFT)
-  effectiveFrom DateTime
-  rules        Json
-  createdBy    String
-  createdAt    DateTime       @default(now())
-  activatedAt  DateTime?
-  incomes      Income[]
+  id            String         @id @default(uuid())
+  version       Int
+  status        DiscountStatus @default(DRAFT)
+  effectiveFrom DateTime       @map("effective_from")
+  rules         Json
+  createdBy     String         @map("created_by")
+  createdAt     DateTime       @default(now()) @map("created_at")
+  activatedAt   DateTime?      @map("activated_at")
+  incomes       Income[]
 
   @@unique([version])
+  @@map("discount_versions")
 }
 
 model Income {
@@ -68,17 +73,18 @@ model Income {
   amount            Decimal          @db.Decimal(14, 2)
   date              DateTime
   description       String?
-  parishionerId     String?
-  discountVersionId String?
-  discountSnapshot  Json?
-  createdBy         String
-  createdAt         DateTime         @default(now())
+  parishionerId     String?          @map("parishioner_id")
+  discountVersionId String?          @map("discount_version_id")
+  discountSnapshot  Json?            @map("discount_snapshot")
+  createdBy         String           @map("created_by")
+  createdAt         DateTime         @default(now()) @map("created_at")
 
-  parishioner      Parishioner?     @relation(fields: [parishionerId], references: [id])
-  discountVersion  DiscountVersion? @relation(fields: [discountVersionId], references: [id])
+  parishioner     Parishioner?     @relation(fields: [parishionerId], references: [id])
+  discountVersion DiscountVersion? @relation(fields: [discountVersionId], references: [id])
 
   @@index([type, date])
   @@index([parishionerId])
+  @@map("incomes")
 }
 
 model Expense {
@@ -87,9 +93,10 @@ model Expense {
   amount      Decimal    @db.Decimal(14, 2)
   date        DateTime
   category    String
-  fundSource  FundSource
-  createdBy   String
-  createdAt   DateTime   @default(now())
+  fundSource  FundSource @map("fund_source")
+  createdBy   String     @map("created_by")
+  createdAt   DateTime   @default(now()) @map("created_at")
 
   @@index([fundSource, date])
+  @@map("expenses")
 }
