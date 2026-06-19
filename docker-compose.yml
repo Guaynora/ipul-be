@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: ipul-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-ipul}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ipul_dev}
+      POSTGRES_DB: ${POSTGRES_DB:-ipul_dev}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - ipul_db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-ipul} -d ${POSTGRES_DB:-ipul_dev}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  ipul_db_data:
